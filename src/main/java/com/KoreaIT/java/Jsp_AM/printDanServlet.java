@@ -27,11 +27,11 @@ public class printDanServlet extends HttpServlet {
 			inputedLimit = "1";
 		}
 		if (inputedColor == null) {
-			inputedLimit = "black";
+			inputedColor = "black";
 		}
 
 		int dan = Integer.parseInt(inputedDan);
-		int limit = Integer.parseInt(inputedLimit);
+		int limit = Integer.parseInt(inputedLimit); 
 
 		response.getWriter().append(String.format("<div style=\"color:%s\";>==%d단==</div>", inputedColor, dan));
 
