@@ -23,7 +23,10 @@ List<Map<String, Object>> articleRows = (List<Map<String, Object>>) request.getA
 		for (Map<String, Object> articleRow : articleRows) {
 		%>
 		<li><a href="detail?id=<%=articleRow.get("id")%>"><%=articleRow.get("id")%>번,
-				<%=articleRow.get("regDate")%>,<%=articleRow.get("title")%>,<%=articleRow.get("body")%></a></li>
+				<%=articleRow.get("regDate")%>,<%=articleRow.get("title")%>,<%=articleRow.get("body")%></a>
+			<div>
+				<a href="delete?id=<%=articleRow.get("id")%>">삭제하기</a>
+			</div></li>
 		<%
 		}
 		%>

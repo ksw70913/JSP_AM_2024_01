@@ -17,16 +17,12 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 
 	<div>
 		번호 :
-		<%=articleRow.get("id")%></div>
-	<div>
-		날짜 :
-		<%=articleRow.get("regDate")%></div>
-	<div>
-		제목 :
-		<%=articleRow.get("title")%></div>
-	<div>
-		내용 :
-		<%=articleRow.get("body")%></div>
+		<%=articleRow.get("id")%>
+		게시글이 삭제되었습니다.
+		<%
+	articleRow.remove("id");
+	%>
+	</div>
 
 
 	<div>
