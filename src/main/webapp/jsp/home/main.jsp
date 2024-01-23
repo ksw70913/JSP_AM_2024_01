@@ -13,6 +13,7 @@
 
 	<ul>
 		<li><a href="../article/list">리스트로 이동</a></li>
+		<a href="doWrite">del</a>
 	</ul>
 </body>
 </html>
