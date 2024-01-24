@@ -159,12 +159,26 @@ body {
 			end_v2 = totalPage;
 			}
 
+			int beforeBtn = cPage - pageSize_v2;
+
+			if (beforeBtn < 1) {
+			beforeBtn = 1;
+			}
+			%>
+			<a href="list?page=<%=beforeBtn%>">◁</a>
+			<%
 			for (int i = from_v2; i <= end_v2; i++) {
 			%>
 			<a class="<%=cPage == i ? "cPage" : ""%>" href="list?page=<%=i%>"><%=i%></a>
 			<%
 			}
-
+			int afterBtn = cPage + pageSize_v2;
+			if (afterBtn > totalPage) {
+			afterBtn = totalPage;
+			}
+			%>
+			<a href="list?page=<%=afterBtn%>">▷</a>
+			<%
 			if (cPage < totalPage) {
 			%>
 			<a href="list?page=<%=totalPage%>">▶▶</a>
