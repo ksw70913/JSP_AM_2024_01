@@ -14,12 +14,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/article/write")
-public class ArticleWriteServlet extends HttpServlet {
+@WebServlet("/member/join")
+public class MemberJoinServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/jsp/article/write.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/member/join.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
