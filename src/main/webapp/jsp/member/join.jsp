@@ -8,89 +8,93 @@
 <title>회원 가입 페이지</title>
 </head>
 <body>
+	<div>
+		<a href="../home/main">메인으로 돌아가기</a>
+	</div>
 
-	<h2>회원 가입</h2>
+	<!-- 	<a href="https://www.naver.com" -->
+	<!-- 		onclick="if(confirm('진짜 이동 할거임????') == false) return false;">naver</a> -->
 
-	<form name="joinFrom" method="POST" action="doJoin">
-		<div>
-			아이디 : <input type="text" placeholder="아이디는 5자 이상, 16자 미만으로 입력하세요!"
-				name="loginId" />
-		</div>
-		<div>
-			비밀번호 : <input type="password" placeholder="비밀번호는 8자리 이상으로 입력하세요!"
-				name="loginPw" />
-		</div>
-		<div>
-			비밀번호 확인 : <input type="password" placeholder="비밀번호를 다시 입력해주세요"
-				name="loginPw" />
-		</div>
-		<div>
-			이름 : <input type="text" placeholder="이름을 입력하세요" name="name" />
-		</div>
-		<div>
-			<input type="button" value="가입완료" onclick="check()">
-		</div>
+	<h2>회원가입</h2>
 
-	</form>
-</body>
-<script src="user.js">
-function check(){
-	let frm = document.join;
-	let loginId = frm.loginId;
-	let loginPw = frm.loginPw;
-	let loginPw_re = frm.loginPw_re;
-	let name = frm.name;
-	 
- 	// 아이디를 입력하세요
- 	if( loginId.value == "" ){
-		alert("아이디를 입력하세요");
-		loginId.focus();
-		return false;
-	}
- 
- 	// 아이디는 5자 이상, 16자 미만
- 	if( loginId.value.length <= 4 || loginId.value.length >= 16 ){
-		alert("아이디는 5자 이상, 16자 미만으로 입력하세요!");
-		userid.focus();
-		return false;
-	}
- 
- 	// 비밀번호 입력
- 	// 비밀번호는 8자 이상
- 	if( loginPw.value == "" ){
-		alert("비밀번호를 입력하세요");
-		loginPw.focus();
-		return false;
-	} else {
-		if( loginPw.value.length < 8 ){
-			alert("비밀번호는 8자리 이상으로 입력하세요!");
-			loginPw.focus();
-			return false;
+	<script type="text/javascript">
+		var JoinForm__submitDone = false;
+
+		function JoinForm__submit(form) {
+			if (JoinForm__submitDone) {
+				alert('이미 처리중입니다');
+				return;
+			}
+			// 			form.loginId.value = form.loginId.value.trim();
+			var loginId = form.loginId.value.trim();
+			var loginPw = form.loginPw.value.trim();
+			var loginPwConfirm = form.loginPwConfirm.value.trim();
+			var name = form.name.value.trim();
+
+			console.log('form.loginId.value : ' + loginId);
+			console.log('form.loginPw.value : ' + loginPw);
+			console.log('form.loginPwConfirm.value : ' + loginPwConfirm);
+			console.log('form.name.value : ' + name);
+
+			if (loginId.length == 0) {
+				alert('아이디를 입력해주세요');
+				form.loginId.focus();
+				return;
+			}
+			if (loginPw.length == 0) {
+				alert('비밀번호를 입력해주세요');
+				form.loginPw.focus();
+				return;
+			}
+			if (loginPwConfirm.length == 0) {
+				alert('비밀번호 확인을 입력해주세요');
+				form.loginPwConfirm.focus();
+				return;
+			}
+
+			if (loginPw != loginPwConfirm) {
+				alert('비밀번호가 일치하지 않습니다.');
+				form.loginPw.focus();
+				return;
+			}
+
+			if (name.length == 0) {
+				alert('이름을 입력해주세요');
+				form.name.focus();
+				return;
+			}
+
+			JoinForm__submitDone = true;
+			form.submit();
+
 		}
-	}
- 
- 	// 비밀번호 == 비밀번호확인
- 	if( loginPw.value != loginPw_re.value ){
-		alert("비밀번호 확인을 다시하세요!");
-		loginPw_re.focus();
-		return false;
-	}
- 
- 	// 이름
- 	if( name.value == ""  ){
-		alert("이름을 입력하세요!");
-		name.focus();
-		return false;
-	}
-	// submit
- 	frm.submit();
-}
+	</script>
 
-</script>
-
-<div>
-	<a style="color: green" href="list">리스트로 돌아가기</a>
-</div>
+	<form method="POST" action="doJoin"
+		onsubmit="JoinForm__submit(this); return false;">
+		<div>
+			로그인 아이디 : <input autocomplete="off" type="text"
+				placeholder="아이디를 입력해주세요" name="loginId" />
+		</div>
+		<div>
+			로그인 비밀번호 : <input autocomplete="off" type="text"
+				placeholder="비밀번호를 입력해주세요" name="loginPw" />
+		</div>
+		<div>
+			로그인 비밀번호 확인: <input autocomplete="off" type="text"
+				placeholder="비밀번호 확인을 입력해주세요" name="loginPwConfirm" />
+		</div>
+		<div>
+			이름 : <input autocomplete="off" type="text" placeholder="이름을 입력해주세요"
+				name="name" />
+		</div>
+		<button type="submit">가입</button>
+	</form>
 
 
+	<div>
+		<a style="color: green" href="../article/list">리스트로 돌아가기</a>
+	</div>
+
+</body>
 </html>
