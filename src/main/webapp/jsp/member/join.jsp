@@ -1,3 +1,4 @@
+<%@ page import="java.util.List"%>
 <%@ page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -16,6 +17,14 @@
 	<!-- 		onclick="if(confirm('진짜 이동 할거임????') == false) return false;">naver</a> -->
 
 	<h2>회원가입</h2>
+
+	<script>
+		function submit2(frm) { //폼에서 액션 경로를 여러개 사용하기 위한 함수
+			frm.action = 'check.jsp'; //두번째로 보낼 경로 아이디 중복 체크하는 부분
+			frm.submit();
+			return false;
+		}
+	</script>
 
 	<script type="text/javascript">
 		var JoinForm__submitDone = false;
