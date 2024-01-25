@@ -15,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/article/doModify")
 public class ArticleDoModifyServlet extends HttpServlet {
@@ -36,6 +37,7 @@ public class ArticleDoModifyServlet extends HttpServlet {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());
 
 			int id = Integer.parseInt(request.getParameter("id"));
+
 
 			String title = request.getParameter("title");
 			String body = request.getParameter("body");

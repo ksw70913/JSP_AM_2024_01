@@ -23,21 +23,18 @@ public class ArticleModifyServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
 
 		boolean isLogined = false;
-		int loginedMemberId = -1;
-		Map<String, Object> loginedMember = null;
 
-		if (session.getAttribute("loginedMemberId") != null) {
+		if (session.getAttribute("loginedMemberId") == null) {
+			response.getWriter()
+					.append(String.format("<script>alert('로그인 후 이용해주세요.'); location.replace('list');</script>"));
+
+		} else {
 			isLogined = true;
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
-			loginedMember = (Map<String, Object>) session.getAttribute("loginedMember");
 		}
-
-		request.setAttribute("isLogined", isLogined);
-		request.setAttribute("loginedMemberId", loginedMemberId);
-		request.setAttribute("loginedMember", loginedMember);
 
 		response.setContentType("text/html;charset=UTF-8");
 		// DB연결
@@ -60,6 +57,14 @@ public class ArticleModifyServlet extends HttpServlet {
 			sql.append("WHERE id = ?;", id);
 
 			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
+
+			int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+
+			if (loginedMemberId != (int) articleRow.get("memberId")) {
+				response.getWriter().append(String.format(
+						"<script>alert('%d님이 작성하신 글이 아닙니다.'); location.replace('list');</script>", loginedMemberId));
+				return;
+			}
 
 			request.setAttribute("articleRow", articleRow);
 			request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);

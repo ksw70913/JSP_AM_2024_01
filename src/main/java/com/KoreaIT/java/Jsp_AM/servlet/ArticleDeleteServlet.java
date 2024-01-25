@@ -52,7 +52,21 @@ public class ArticleDeleteServlet extends HttpServlet {
 
 			int id = Integer.parseInt(request.getParameter("id"));
 
-			SecSql sql = SecSql.from("DELETE");
+			int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+
+			SecSql sql = SecSql.from("SELECT *");
+			sql.append("FROM article");
+			sql.append("WHERE id = ?;", id);
+
+			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
+
+			if (loginedMemberId != (int) articleRow.get("memberId")) {
+				response.getWriter().append(String.format(
+						"<script>alert('%d님이 작성하신 글이 아닙니다.'); location.replace('list');</script>", loginedMemberId));
+				return;
+			}
+
+			sql = SecSql.from("DELETE");
 			sql.append("FROM article");
 			sql.append("WHERE id = ?;", id);
 
