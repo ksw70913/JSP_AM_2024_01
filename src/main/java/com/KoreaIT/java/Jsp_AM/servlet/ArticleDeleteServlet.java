@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Map;
 
 import com.KoreaIT.java.Jsp_AM.config.Config;
 import com.KoreaIT.java.Jsp_AM.exception.SQLErrorException;
@@ -15,12 +16,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/article/doDelete")
 public class ArticleDeleteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+
+		boolean isLogined = false;
+
+		if (session.getAttribute("loginedMemberId") == null) {
+			response.getWriter()
+					.append(String.format("<script>alert('로그인 후 이용해주세요.'); location.replace('list');</script>"));
+
+		} else {
+			isLogined = true;
+		}
 		response.setContentType("text/html;charset=UTF-8");
 		// DB연결
 		try {
@@ -40,7 +54,7 @@ public class ArticleDeleteServlet extends HttpServlet {
 
 			SecSql sql = SecSql.from("DELETE");
 			sql.append("FROM article");
-			sql.append("WHERE i = ?;", id);
+			sql.append("WHERE id = ?;", id);
 
 			DBUtil.delete(conn, sql);
 

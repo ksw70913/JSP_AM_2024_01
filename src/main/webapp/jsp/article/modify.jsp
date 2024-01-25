@@ -4,6 +4,8 @@
 
 <%
 Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
+boolean isLogined = (boolean) request.getAttribute("isLogined");
+Map<String, Object> loginedMember = (Map<String, Object>) request.getAttribute("loginedMember");
 %>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,17 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 <title>게시물 수정 페이지</title>
 </head>
 <body>
+
+	<%
+	if (!isLogined) {
+	%>
+	<script>
+		alert('로그인하고 이용해 주세요.');
+		location.replace('../home/main');
+	</script>
+	<%
+	}
+	%>
 
 	<h2>게시물 수정</h2>
 
