@@ -40,8 +40,9 @@ public class ArticleDetailServlet extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 
 			SecSql sql = SecSql.from("SELECT *");
-			sql.append("FROM article");
-			sql.append("WHERE id = ?;", id);
+			sql.append("FROM article a");
+			sql.append("INNER JOIN `member` m");
+			sql.append("WHERE m.id = a.memberid");
 
 			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
 
