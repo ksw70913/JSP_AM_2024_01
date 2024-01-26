@@ -10,9 +10,6 @@ int cPage = (int) request.getAttribute("page");
 int totalPage = (int) request.getAttribute("totalPage");
 int totalCnt = (int) request.getAttribute("totalCnt");
 int itemsInAPage = (int) request.getAttribute("itemsInAPage");
-// boolean isLogined = (boolean) request.getAttribute("isLogined");
-// int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-// Map<String, Object> loginedMember = (Map<String, Object>) request.getAttribute("loginedMember");
 %>
 <!DOCTYPE html>
 <html>
@@ -64,19 +61,8 @@ body {
 	text-decoration: underline;
 }
 </style>
-	<div>
-		<a href="../home/main">메인으로 이동</a>
-	</div>
+	<%@ include file="../part/topBar.jspf"%>
 
-	<%-- 	<% --%>
-	<!-- 	// if (isLogined) { -->
-	<%-- 	%> --%>
-	<div>
-		<a href="write">글쓰기</a>
-	</div>
-	<%-- 	<% --%>
-	<!-- 	// } -->
-	<%-- 	%> --%>
 	<h2>게시물 목록</h2>
 
 	<table class="list_table"
@@ -86,9 +72,9 @@ body {
 				<th>번호</th>
 				<th>작성날짜</th>
 				<th>제목</th>
+				<th>작성자</th>
 				<th>수정</th>
 				<th>삭제</th>
-				<th>작성자</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -99,9 +85,9 @@ body {
 				<td><%=articleRow.get("id")%></td>
 				<td><%=articleRow.get("regDate")%></td>
 				<td><a href="detail?id=<%=articleRow.get("id")%>"><%=articleRow.get("title")%></a></td>
+				<td><%=articleRow.get("writer")%></td>
 				<td><a href="modify?id=<%=articleRow.get("id")%>">수정</a></td>
 				<td><a href="doDelete?id=<%=articleRow.get("id")%>">del</a></td>
-				<td><%=articleRow.get("name")%></td>
 			</tr>
 			<%
 			}
@@ -143,7 +129,7 @@ body {
 			%>
 		</div>
 	</div>
-	<br />
+
 	<div class="page_box page_v2" style="margin-top: 50px">
 		<div class="page">
 			<%
