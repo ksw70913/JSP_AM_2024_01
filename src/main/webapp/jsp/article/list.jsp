@@ -169,13 +169,13 @@ body {
 			<a class="<%=cPage == i ? "cPage" : ""%>" href="list?page=<%=i%>"><%=i%></a>
 			<%
 			}
-			int afterBtn = pageGroup + pageSize_v2;
-			if (afterBtn > totalPage) {
-			// 			afterBtn = totalPage;
-			}
+			int afterBtn = pageGroup * pageSize_v2 + 1;
+			if (afterBtn < totalPage) {
 			%>
 			<a href="list?page=<%=afterBtn%>">▷</a>
 			<%
+			}
+
 			if (cPage < totalPage) {
 			%>
 			<a href="list?page=<%=totalPage%>">▶▶</a>
